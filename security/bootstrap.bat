@@ -65,6 +65,10 @@ echo [OK] npm Found
 npm --version
 
 echo.
+echo DEBUG: Reached Step 6
+pause
+
+echo.
 echo [STEP 6] Verifying Ruby...
 where ruby >nul 2>&1
 
