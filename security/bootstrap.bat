@@ -26,7 +26,7 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 echo [OK] Python Found
-python --version
+call python --version
 
 echo.
 echo [STEP 3] Verifying pip...
@@ -50,7 +50,7 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 echo [OK] NodeJS Found
-node --version
+call node --version
 
 echo.
 echo [STEP 5] Verifying npm...
@@ -62,11 +62,7 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 echo [OK] npm Found
-npm --version
-
-echo.
-echo DEBUG: Reached Step 6
-pause
+call npm --version
 
 echo.
 echo [STEP 6] Verifying Ruby...
@@ -79,12 +75,12 @@ IF %ERRORLEVEL% NEQ 0 (
 )
 
 echo [OK] Ruby Found
-ruby --version
+call ruby --version
 
 echo.
 echo [STEP 7] Installing AWS ASH...
 
-pip install --upgrade git+https://github.com/awslabs/automated-security-helper.git@v3.5.3
+call pip install --upgrade git+https://github.com/awslabs/automated-security-helper.git@v3.5.3
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to install AWS ASH.
@@ -96,7 +92,7 @@ echo [OK] AWS ASH Installed
 echo.
 echo [STEP 8] Verifying ASH...
 
-ash --version
+call ash --version
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] ASH verification failed.
@@ -108,7 +104,7 @@ echo [OK] AWS ASH Verified
 echo.
 echo [STEP 9] Installing pre-commit...
 
-pip install --upgrade pre-commit
+call pip install --upgrade pre-commit
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to install pre-commit.
@@ -135,7 +131,7 @@ echo [OK] Repository Configuration Found
 echo.
 echo [STEP 11] Installing Git Pre-Commit Hook...
 
-pre-commit install
+call pre-commit install
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to install pre-commit hook.
@@ -147,7 +143,7 @@ echo [OK] Pre-Commit Hook Installed
 echo.
 echo [STEP 12] Installing Git Pre-Push Hook...
 
-pre-commit install --hook-type pre-push
+call pre-commit install --hook-type pre-push
 
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Failed to install pre-push hook.
@@ -174,7 +170,7 @@ echo [OK] Git Hooks Verified
 echo.
 echo [STEP 14] Running ASH Validation Scan...
 
-ash --mode local
+call ash --mode local
 
 IF %ERRORLEVEL% NEQ 0 (
     echo.
@@ -189,21 +185,5 @@ echo.
 echo =====================================================
 echo BOOTSTRAP COMPLETED SUCCESSFULLY
 echo =====================================================
-echo.
-echo Installed Components:
-echo.
-echo    [OK] Git
-echo    [OK] Python
-echo    [OK] pip
-echo    [OK] NodeJS
-echo    [OK] npm
-echo    [OK] Ruby
-echo    [OK] AWS ASH
-echo    [OK] pre-commit
-echo    [OK] Pre-Commit Hook
-echo    [OK] Pre-Push Hook
-echo.
-echo Security Agent Ready
-echo.
 
 exit /b 0
