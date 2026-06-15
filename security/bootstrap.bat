@@ -66,16 +66,34 @@ call npm --version
 
 echo.
 echo [STEP 6] Verifying Ruby...
+
 where ruby >nul 2>&1
 
 IF %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Ruby is not installed.
-    echo cfn_nag requires Ruby.
-    exit /b 1
+    echo [WARN] Ruby not found. Attempting auto-install via winget...
+
+    where winget >nul 2>&1
+    IF %ERRORLEVEL% NEQ 0 (
+        echo [ERROR] winget not available. Cannot auto-install Ruby.
+        echo Please install winget or Ruby manually.
+        exit /b 1
+    )
+
+    echo Installing Ruby using winget...
+    winget install --id RubyInstallerTeam.RubyWithDevKit -e --silent
+
+    echo Refreshing environment...
+    call refreshenv >nul 2>&1
+
+    where ruby >nul 2>&1
+    IF %ERRORLEVEL% NEQ 0 (
+        echo [ERROR] Ruby installation failed or PATH not updated.
+        exit /b 1
+    )
 )
 
 echo [OK] Ruby Found
-call ruby --version
+ruby --version
 
 echo.
 echo [STEP 7] Installing AWS ASH...
