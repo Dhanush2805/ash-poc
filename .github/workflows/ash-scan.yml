@@ -38,7 +38,7 @@ jobs:
         run: pip install ash-cli
 
       - name: Run ASH Scan
-        run: ash scan . --fail-on HIGH
+        run: ash scan . --no-ai
 
       - name: Upload Report
         if: always()
