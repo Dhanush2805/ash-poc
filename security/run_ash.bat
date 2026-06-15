@@ -1,13 +1,14 @@
 @echo off
 
-echo Running AWS ASH Scan...
-
 ash --mode local
 
 IF %ERRORLEVEL% NEQ 0 (
-    echo ASH Scan Failed
+
+    echo Security scan failed.
+
+    start .ash\ash_output\reports\ash.html
+
     exit /b 1
 )
 
-echo ASH Scan Passed
 exit /b 0
