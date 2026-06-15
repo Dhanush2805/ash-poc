@@ -1,0 +1,16 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ash-pre-commit
+        name: AWS ASH Pre-Commit Scan
+        entry: security/run_ash.bat
+        language: script
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: ash-pre-push
+        name: AWS ASH Pre-Push Scan
+        entry: security/run_ash.bat
+        language: script
+        pass_filenames: false
+        stages: [pre-push]

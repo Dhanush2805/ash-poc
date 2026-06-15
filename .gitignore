@@ -1,0 +1,10 @@
+# ASH Reports
+.ash/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
