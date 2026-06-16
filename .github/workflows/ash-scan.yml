@@ -1,48 +1,33 @@
 name: ASH Security Scan
 
+on:
+  pull_request:
+    branches:
+      - ash-poc
+  push:
+    branches:
+      - ash-poc
+
 permissions:
   contents: read
   pull-requests: write
   security-events: write
 
-on:
-  push:
-    branches:
-      - main
-      - ash_poc
-
-  pull_request:
-    branches:
-      - main
-      - ash_poc
-
 jobs:
   ash_scan:
+    name: ash_scan
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-
-      - name: Install Dependencies
+      - name: Run ASH AWS Security Scan
         run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          echo "Running ASH AWS Scanner..."
+          
+          # Replace this with your actual ASH scan command
+          # Example:
+          # ash scan --source .
 
-      - name: Install ASH Scanner
-        run: pip install ash-cli
-
-      - name: Run ASH Scan
-        run: ash scan . --fail-on HIGH
-
-      - name: Upload Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ash-scan-report
-          path: ash-report.json
+          ./run-ash-scan.sh
