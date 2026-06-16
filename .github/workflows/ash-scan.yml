@@ -3,8 +3,11 @@ name: ASH Security Scan
 on:
 
   pull_request:
-    branches: [ ash-poc ]
-    
+    branches: 
+      - ash-poc   
+  push:
+    branches:
+      - ash-poc    
 permissions:
   contents: read    
   security-events: write
