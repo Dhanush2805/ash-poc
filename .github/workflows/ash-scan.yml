@@ -6,8 +6,8 @@ on:
     branches: [ ash-poc ]
     
 permissions:
-  contents: read
-  
+  contents: read    
+
 jobs:
   scan:
     runs-on: ubuntu-latest
