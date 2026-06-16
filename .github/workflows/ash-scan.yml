@@ -22,12 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run ASH AWS Security Scan
+      - name: Run ASH Scan (CI)
         run: |
-          echo "Running ASH AWS Scanner..."
-          
-          # Replace this with your actual ASH scan command
-          # Example:
-          # ash scan --source .
-
-          ./run-ash-scan.sh
+          chmod +x security/run_ash.sh
+          security/run_ash.sh
