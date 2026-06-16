@@ -1,28 +1,26 @@
 name: ASH Security Scan
 
 on:
-  pull_request:
-    branches:
-      - ash-poc
   push:
-    branches:
-      - ash-poc
-
-permissions:
-  contents: read
-  pull-requests: write
-  security-events: write
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  ash_scan:
-    name: ash_scan
+  scan:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run ASH Scan (CI)
-        run: |
-          chmod +x security/run_ash.sh
-          security/run_ash.sh
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install ASH
+        run: pip install git+https://github.com/awslabs/automated-security-helper.git@v3.5.4
+      - name: Run ASH scan
+        run: ash --mode local
+      - name: Upload scan results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ash-results
+          path: .ash/ash_output
