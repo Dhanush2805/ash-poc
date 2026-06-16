@@ -4,6 +4,9 @@ on:
 
   pull_request:
     branches: [ ash-poc ]
+    
+permissions:
+  contents: read    
 
 jobs:
   scan:
